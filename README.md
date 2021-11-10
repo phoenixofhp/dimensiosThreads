@@ -3,7 +3,7 @@ Basic multithreading program
 
 Calculates amount of points in multidimension space that fits in outer circle layer
 
-constexpr int THREADS- cores amount
+constexpr int THREADS- threads amount
 
 constexpr int DIMENSIONS- takes too long to render if DIMENSIONS >30
 
