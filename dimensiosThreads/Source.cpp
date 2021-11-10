@@ -5,15 +5,15 @@
 #include<thread>
 #include<mutex>
 
-#define THREAD_LOOP //Всегда включена в актуальной версии
-//#define DEBUG_ON //Вывод в консоль информации о том, сколько % точек уже найдено. Сильно замедляет работу, если размерность пространства <20-25
-std::mutex mutex; //Объяслен в глобальной области, правильно ли так делать?
+#define THREAD_LOOP //Р’СЃРµРіРґР° РІРєР»СЋС‡РµРЅР° РІ Р°РєС‚СѓР°Р»СЊРЅРѕР№ РІРµСЂСЃРёРё
+//#define DEBUG_ON //Р’С‹РІРѕРґ РІ РєРѕРЅСЃРѕР»СЊ РёРЅС„РѕСЂРјР°С†РёРё Рѕ С‚РѕРј, СЃРєРѕР»СЊРєРѕ % С‚РѕС‡РµРє СѓР¶Рµ РЅР°Р№РґРµРЅРѕ. РЎРёР»СЊРЅРѕ Р·Р°РјРµРґР»СЏРµС‚ СЂР°Р±РѕС‚Сѓ, РµСЃР»Рё СЂР°Р·РјРµСЂРЅРѕСЃС‚СЊ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР° <20-25
+std::mutex mutex; //РћР±СЉСЏСЃР»РµРЅ РІ РіР»РѕР±Р°Р»СЊРЅРѕР№ РѕР±Р»Р°СЃС‚Рё, РїСЂР°РІРёР»СЊРЅРѕ Р»Рё С‚Р°Рє РґРµР»Р°С‚СЊ?
 
-constexpr int THREADS = 4; //Кол-во потоков
-constexpr int DIMENSIONS = 15; //Размерность пространства
-constexpr int AMOUNT = 10000; //Кол-во точек, которых мы генерируем
-constexpr double RADIUS = 1.0; //Радиус сферы
-constexpr double EPSILON = 0.1; //Толщина внешнего слоя сферы
+constexpr int THREADS = 4; //РљРѕР»-РІРѕ РїРѕС‚РѕРєРѕРІ
+constexpr int DIMENSIONS = 15; //Р Р°Р·РјРµСЂРЅРѕСЃС‚СЊ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР°
+constexpr int AMOUNT = 10000; //РљРѕР»-РІРѕ С‚РѕС‡РµРє, РєРѕС‚РѕСЂС‹С… РјС‹ РіРµРЅРµСЂРёСЂСѓРµРј
+constexpr double RADIUS = 1.0; //Р Р°РґРёСѓСЃ СЃС„РµСЂС‹
+constexpr double EPSILON = 0.1; //РўРѕР»С‰РёРЅР° РІРЅРµС€РЅРµРіРѕ СЃР»РѕСЏ СЃС„РµСЂС‹
 constexpr double RADIUS_SQR = RADIUS * RADIUS;
 constexpr double RADIUS_EPSILON_SQR = (RADIUS - EPSILON) * (RADIUS - EPSILON);
 
@@ -22,7 +22,7 @@ double rng(int seed) {
 	static std::default_random_engine rng(seed);
 	std::uniform_real_distribution<double> dist(-1.0 * RADIUS, 1.0 * RADIUS);
 	return dist(rng);
-} //Возвращает случайную точку из квадрата со стороной RADIUS
+} //Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃР»СѓС‡Р°Р№РЅСѓСЋ С‚РѕС‡РєСѓ РёР· РєРІР°РґСЂР°С‚Р° СЃРѕ СЃС‚РѕСЂРѕРЅРѕР№ RADIUS
 
 bool isSphere(std::vector<double>& point, int n) {
 
@@ -33,7 +33,7 @@ bool isSphere(std::vector<double>& point, int n) {
 	}
 
 	return true;
-} //Проверяет, лежит ли точка внутри сферы
+} //РџСЂРѕРІРµСЂСЏРµС‚, Р»РµР¶РёС‚ Р»Рё С‚РѕС‡РєР° РІРЅСѓС‚СЂРё СЃС„РµСЂС‹
 
 bool isInLesserSphere(std::vector<double>& point) {
 
@@ -44,7 +44,7 @@ bool isInLesserSphere(std::vector<double>& point) {
 	}
 
 	return true;
-} //Проверяет, лежит ли точка во внутреннем слое сферы
+} //РџСЂРѕРІРµСЂСЏРµС‚, Р»РµР¶РёС‚ Р»Рё С‚РѕС‡РєР° РІРѕ РІРЅСѓС‚СЂРµРЅРЅРµРј СЃР»РѕРµ СЃС„РµСЂС‹
 
 void run(std::vector<std::vector<double>>* points,int seed) {
 
@@ -55,7 +55,7 @@ void run(std::vector<std::vector<double>>* points,int seed) {
 		do 
 		{	
 			j++;
-			point_n.push_back(std::vector<double>(DIMENSIONS, 0)); //Инициализируем точку в пространстве нулями
+			point_n.push_back(std::vector<double>(DIMENSIONS, 0)); //РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј С‚РѕС‡РєСѓ РІ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРµ РЅСѓР»СЏРјРё
 			for (int i = 0; i < DIMENSIONS; i++)
 			{
 				(point_n[j])[i] = (rng(seed));
@@ -71,7 +71,7 @@ void run(std::vector<std::vector<double>>* points,int seed) {
 		}
 
 		#ifdef DEBUG_ON
-		std::cout << 100.0 * (double)points->size() / (double)AMOUNT << "% точек найдено" << std::endl;
+		std::cout << 100.0 * (double)points->size() / (double)AMOUNT << "% С‚РѕС‡РµРє РЅР°Р№РґРµРЅРѕ" << std::endl;
 		#endif 
 
 		mutex.unlock();
@@ -80,13 +80,13 @@ void run(std::vector<std::vector<double>>* points,int seed) {
 
 int main() {
 
-	auto start = std::chrono::high_resolution_clock::now(); //Измеряю время работы программы при помощи методов из <chrono>
+	auto start = std::chrono::high_resolution_clock::now(); //РР·РјРµСЂСЏСЋ РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹ РїСЂРѕРіСЂР°РјРјС‹ РїСЂРё РїРѕРјРѕС‰Рё РјРµС‚РѕРґРѕРІ РёР· <chrono>
 
 	setlocale(LC_CTYPE, "rus");
 
 	std::thread threads[THREADS];
 
-	std::vector<std::vector<double>>* points; //Вектор точек в куче, так как у него может быть очень большой объем
+	std::vector<std::vector<double>>* points; //Р’РµРєС‚РѕСЂ С‚РѕС‡РµРє РІ РєСѓС‡Рµ, С‚Р°Рє РєР°Рє Сѓ РЅРµРіРѕ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕС‡РµРЅСЊ Р±РѕР»СЊС€РѕР№ РѕР±СЉРµРј
 	points = new std::vector<std::vector<double>>;
 	points->reserve(AMOUNT);
 
@@ -136,7 +136,7 @@ int main() {
 			}
 		#endif
 
-	} while (false); //Одноразовый цикл, созданный для того, чтобы сделать переменную end локальной для данного блока кода
+	} while (false); //РћРґРЅРѕСЂР°Р·РѕРІС‹Р№ С†РёРєР», СЃРѕР·РґР°РЅРЅС‹Р№ РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ СЃРґРµР»Р°С‚СЊ РїРµСЂРµРјРµРЅРЅСѓСЋ end Р»РѕРєР°Р»СЊРЅРѕР№ РґР»СЏ РґР°РЅРЅРѕРіРѕ Р±Р»РѕРєР° РєРѕРґР°
 
 	int outside = points->size();
 	for (size_t i = 0; i < points->size(); i++)
@@ -145,15 +145,15 @@ int main() {
 
 	}
 
-	std::cout << "Берем " << DIMENSIONS << " мерную сферу" << std::endl;
-	std::cout << "Берем " << points->size() << " точек внутри сферы" << std::endl;
-	std::cout << "В поверхностном слое " << 100.0 * (double)outside / (double)points->size() << "% точек" << std::endl;
+	std::cout << "Р‘РµСЂРµРј " << DIMENSIONS << " РјРµСЂРЅСѓСЋ СЃС„РµСЂСѓ" << std::endl;
+	std::cout << "Р‘РµСЂРµРј " << points->size() << " С‚РѕС‡РµРє РІРЅСѓС‚СЂРё СЃС„РµСЂС‹" << std::endl;
+	std::cout << "Р’ РїРѕРІРµСЂС…РЅРѕСЃС‚РЅРѕРј СЃР»РѕРµ " << 100.0 * (double)outside / (double)points->size() << "% С‚РѕС‡РµРє" << std::endl;
 
 	delete points;
 
 	auto end = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double, std::milli> elapsed = end - start;
-	std::cout << "Прошло " << elapsed.count() << " мс, на "<< THREADS << " потоках\n";
+	std::cout << "РџСЂРѕС€Р»Рѕ " << elapsed.count() << " РјСЃ, РЅР° "<< THREADS << " РїРѕС‚РѕРєР°С…\n";
 	std::cin.get();
 	std::cin.get();
 	return 0;
