@@ -61,7 +61,7 @@ void run( std::vector<std::vector<double>>* points,int seed) {
 			points->push_back(point);
 
 #ifdef DEBUG_ON
-			std::cout << 100.0 * (double)points->size() / (double)AMOUNT << "% òî÷åê íàéäåíî" << std::endl;
+			std::cout << 100.0 * (double)points->size() / (double)AMOUNT << "% Ã²Ã®Ã·Ã¥Ãª Ã­Ã Ã©Ã¤Ã¥Ã­Ã®" << std::endl;
 #endif 
 			mutex.unlock();
 	
@@ -70,7 +70,7 @@ void run( std::vector<std::vector<double>>* points,int seed) {
 
 int main() {
 	auto start = std::chrono::high_resolution_clock::now();
-	setlocale(LC_CTYPE, "rus");
+	std::setlocale(LC_ALL, "ru_RU.UTF-8");
 
 	std::thread threads[THREADS];
 
@@ -131,15 +131,15 @@ int main() {
 
 	}
 
-	std::cout << "Áåðåì " << DIMENSIONS << " ìåðíóþ ñôåðó" << std::endl;
-	std::cout << "Áåðåì " << points->size() << " òî÷åê âíóòðè ñôåðû" << std::endl;
-	std::cout << "Â ïîâåðõíîñòíîì ñëîå " << 100.0 * (double)outside / (double)points->size() << "% òî÷åê" << std::endl;
+	std::cout << "ÃÃ¥Ã°Ã¥Ã¬ " << DIMENSIONS << " Ã¬Ã¥Ã°Ã­Ã³Ã¾ Ã±Ã´Ã¥Ã°Ã³" << std::endl;
+	std::cout << "ÃÃ¥Ã°Ã¥Ã¬ " << points->size() << " Ã²Ã®Ã·Ã¥Ãª Ã¢Ã­Ã³Ã²Ã°Ã¨ Ã±Ã´Ã¥Ã°Ã»" << std::endl;
+	std::cout << "Ã‚ Ã¯Ã®Ã¢Ã¥Ã°ÃµÃ­Ã®Ã±Ã²Ã­Ã®Ã¬ Ã±Ã«Ã®Ã¥ " << 100.0 * (double)outside / (double)points->size() << "% Ã²Ã®Ã·Ã¥Ãª" << std::endl;
 
 	delete points;
 
 	auto end = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double, std::milli> elapsed = end - start;
-	std::cout << "Ïðîøëî " << elapsed.count() << " ìñ, íà "<< THREADS << " ïîòîêàõ\n";
+	std::cout << "ÃÃ°Ã®Ã¸Ã«Ã® " << elapsed.count() << " Ã¬Ã±, Ã­Ã  "<< THREADS << " Ã¯Ã®Ã²Ã®ÃªÃ Ãµ\n";
 	std::cin.get();
 	std::cin.get();
 	return 0;
